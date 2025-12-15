@@ -166,8 +166,8 @@ export const localInfo = {
   name: "Luna Lounge",
   tagline: "Shisha Lounge · Cocktails · Chill",
   address: {
-    street: "Calle Gran Vía, 42",
-    city: "28013 Madrid, España",
+    street: "Calle Juan de Austria, 6",
+    city: "45221 Esquivias, Toledo",
   },
   hours: [
     { days: "Lunes - Jueves", time: "18:00 - 02:00" },
@@ -175,8 +175,6 @@ export const localInfo = {
     { days: "Domingo", time: "17:00 - 01:00" },
   ],
   social: {
-    instagram: "#",
-    facebook: "#",
-    tiktok: "#",
+    instagram: "https://www.instagram.com/lunalounge_esquivias/"
   },
 };

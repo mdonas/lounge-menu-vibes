@@ -1,5 +1,5 @@
 import { Sparkles } from "lucide-react";
-import logoImage from "@/assets/lunalounge-logo.jpg";
+import logoImage from "@/assets/logoSinBack.png";
 
 const Header = () => {
   return (

@@ -1,4 +1,4 @@
-import { MapPin, Clock, Instagram, Facebook, Music2 } from "lucide-react";
+import { MapPin, Clock, Instagram } from "lucide-react";
 import { localInfo } from "@/data/menuData";
 
 const Footer = () => {
@@ -42,20 +42,6 @@ const Footer = () => {
               >
                 <Instagram className="w-5 h-5" />
               </a>
-              <a 
-                href={localInfo.social.facebook}
-                className="p-2 rounded-full bg-muted/50 text-muted-foreground hover:bg-gold/20 hover:text-gold transition-all duration-300"
-                aria-label="Facebook"
-              >
-                <Facebook className="w-5 h-5" />
-              </a>
-              <a 
-                href={localInfo.social.tiktok}
-                className="p-2 rounded-full bg-muted/50 text-muted-foreground hover:bg-gold/20 hover:text-gold transition-all duration-300"
-                aria-label="TikTok"
-              >
-                <Music2 className="w-5 h-5" />
-              </a>
             </div>
           </div>
         </div>
@@ -63,7 +49,7 @@ const Footer = () => {
         {/* Bottom */}
         <div className="mt-10 pt-6 border-t border-border/30 text-center">
           <p className="text-muted-foreground text-xs">
-            © 2024 {localInfo.name}. Todos los derechos reservados.
+            © 2025 {localInfo.name}. Todos los derechos reservados.
           </p>
         </div>
       </div>
