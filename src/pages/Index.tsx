@@ -1,4 +1,5 @@
 import Header from "@/components/Header";
+import SectionNav from "@/components/SectionNav";
 import MenuSection from "@/components/MenuSection";
 import MenuItem from "@/components/MenuItem";
 import FlavorGrid from "@/components/FlavorGrid";
@@ -15,63 +16,72 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
+      <SectionNav />
       
       <main className="container">
         {/* Cachimbas Clásicas */}
-        <MenuSection 
-          title={cachimbasClasicas.title} 
-          subtitle={cachimbasClasicas.subtitle}
-        >
-          {cachimbasClasicas.items.map((item) => (
-            <MenuItem 
-              key={item.name}
-              name={item.name}
-              description={item.description}
-              price={item.price}
-              tag={item.tag}
-            />
-          ))}
-        </MenuSection>
+        <section id="clasicas">
+          <MenuSection 
+            title={cachimbasClasicas.title} 
+            subtitle={cachimbasClasicas.subtitle}
+          >
+            {cachimbasClasicas.items.map((item) => (
+              <MenuItem 
+                key={item.name}
+                name={item.name}
+                description={item.description}
+                price={item.price}
+                tag={item.tag}
+              />
+            ))}
+          </MenuSection>
+        </section>
 
         {/* Cachimbas Premium */}
-        <MenuSection 
-          title={cachimbasPremium.title} 
-          subtitle={cachimbasPremium.subtitle}
-        >
-          {cachimbasPremium.items.map((item) => (
-            <MenuItem 
-              key={item.name}
-              name={item.name}
-              description={item.description}
-              price={item.price}
-              tag={item.tag}
-            />
-          ))}
-        </MenuSection>
+        <section id="premium">
+          <MenuSection 
+            title={cachimbasPremium.title} 
+            subtitle={cachimbasPremium.subtitle}
+          >
+            {cachimbasPremium.items.map((item) => (
+              <MenuItem 
+                key={item.name}
+                name={item.name}
+                description={item.description}
+                price={item.price}
+                tag={item.tag}
+              />
+            ))}
+          </MenuSection>
+        </section>
 
         {/* Sabores Disponibles */}
-        <MenuSection 
-          title="Sabores Disponibles" 
-          subtitle="Elige tu favorito o crea tu mezcla"
-        >
-          <FlavorGrid />
-        </MenuSection>
+        <section id="sabores">
+          <MenuSection 
+            title="Sabores Disponibles" 
+            subtitle="Elige tu favorito o crea tu mezcla"
+          >
+            <FlavorGrid />
+          </MenuSection>
+        </section>
 
         {/* Mezclas Especiales */}
-        <MenuSection 
-          title={mezclasCasa.title} 
-          subtitle={mezclasCasa.subtitle}
-        >
-          {mezclasCasa.items.map((item) => (
-            <MenuItem 
-              key={item.name}
-              name={item.name}
-              description={item.description}
-              price={item.price}
-              tag={item.tag}
-            />
-          ))}
-        </MenuSection>
+        <section id="mezclas">
+          <MenuSection 
+            title={mezclasCasa.title} 
+            subtitle={mezclasCasa.subtitle}
+          >
+            {mezclasCasa.items.map((item) => (
+              <MenuItem 
+                key={item.name}
+                name={item.name}
+                description={item.description}
+                price={item.price}
+                tag={item.tag}
+              />
+            ))}
+          </MenuSection>
+        </section>
 
         {/* Separator */}
         <div className="flex items-center justify-center py-8">
@@ -79,43 +89,45 @@ const Index = () => {
         </div>
 
         {/* Bebidas */}
-        <MenuSection 
-          title="Bebidas" 
-          subtitle="Acompaña tu experiencia"
-        >
-          <div className="grid md:grid-cols-2 gap-8">
-            {/* Sin Alcohol */}
-            <div className="space-y-2">
-              <h3 className="text-gold text-sm font-medium uppercase tracking-wider mb-4 px-4">
-                {bebidasSinAlcohol.title}
-              </h3>
-              {bebidasSinAlcohol.items.map((item) => (
-                <MenuItem 
-                  key={item.name}
-                  name={item.name}
-                  description={item.description}
-                  price={item.price}
-                />
-              ))}
-            </div>
+        <section id="bebidas">
+          <MenuSection 
+            title="Bebidas" 
+            subtitle="Acompaña tu experiencia"
+          >
+            <div className="grid md:grid-cols-2 gap-8">
+              {/* Sin Alcohol */}
+              <div className="space-y-2">
+                <h3 className="text-gold text-sm font-medium uppercase tracking-wider mb-4 px-4">
+                  {bebidasSinAlcohol.title}
+                </h3>
+                {bebidasSinAlcohol.items.map((item) => (
+                  <MenuItem 
+                    key={item.name}
+                    name={item.name}
+                    description={item.description}
+                    price={item.price}
+                  />
+                ))}
+              </div>
 
-            {/* Especiales */}
-            <div className="space-y-2">
-              <h3 className="text-gold text-sm font-medium uppercase tracking-wider mb-4 px-4">
-                {bebidasEspeciales.title}
-              </h3>
-              {bebidasEspeciales.items.map((item) => (
-                <MenuItem 
-                  key={item.name}
-                  name={item.name}
-                  description={item.description}
-                  price={item.price}
-                  tag={item.tag}
-                />
-              ))}
+              {/* Especiales */}
+              <div className="space-y-2">
+                <h3 className="text-gold text-sm font-medium uppercase tracking-wider mb-4 px-4">
+                  {bebidasEspeciales.title}
+                </h3>
+                {bebidasEspeciales.items.map((item) => (
+                  <MenuItem 
+                    key={item.name}
+                    name={item.name}
+                    description={item.description}
+                    price={item.price}
+                    tag={item.tag}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
-        </MenuSection>
+          </MenuSection>
+        </section>
       </main>
 
       <Footer />
