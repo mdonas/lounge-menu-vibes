@@ -3,11 +3,21 @@ interface MenuItemProps {
   description?: string;
   price: string;
   tag?: string;
+  imageUrl?: string;
 }
 
-const MenuItem = ({ name, description, price, tag }: MenuItemProps) => {
+const MenuItem = ({ name, description, price, tag, imageUrl }: MenuItemProps) => {
   return (
     <div className="group flex items-start justify-between gap-4 py-4 px-4 rounded-lg transition-all duration-300 hover:bg-muted/30">
+      {imageUrl && (
+        <div className="flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden">
+          <img 
+            src={imageUrl} 
+            alt={name}
+            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+          />
+        </div>
+      )}
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 flex-wrap">
           <h3 className="font-display text-lg text-foreground group-hover:text-gold transition-colors">

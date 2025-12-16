@@ -1,5 +1,6 @@
 import { MapPin, Clock, Instagram } from "lucide-react";
 import { localInfo } from "@/data/menuData";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -53,6 +54,15 @@ const Footer = () => {
           </p>
         </div>
       </div>
+              {/* Link al admin (solo visible en desarrollo) */}
+        {import.meta.env.DEV && (
+          <Link
+            to="/admin/login"
+            className="flex items-center gap-2 px-3 py-2 rounded-lg bg-muted/50 hover:bg-muted transition-colors text-sm"
+          >
+            <span className="hidden sm:inline">Admin</span>
+          </Link>
+        )}
     </footer>
   );
 };
