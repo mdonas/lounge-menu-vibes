@@ -1,73 +1,64 @@
-# Welcome to your Lovable project
+# LunaLounge Menu Vibes
 
-## Project info
+## ¿Qué es LunaLounge?
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+**LunaLounge** es tu espacio de relajación en Esquivias, Toledo. Un lugar donde el ambiente chill se fusiona con experiencias únicas de shisha, cocktails y buena compañía.
 
-## How can I edit this code?
+## Nuestra Carta Digital
 
-There are several ways of editing your application.
+Esta carta digital interactiva te permite explorar todas nuestras ofertas:
 
-**Use Lovable**
+### 🌿 Cachimbas & Shisha
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+#### Cachimbas Clásicas
+Elige tu experiencia perfecta con nuestra selección de **12 sabores premium**:
+- **Individual** (15€) - Un sabor puro
+- **Dúo** (17€) - Mezcla dos sabores
+- **Trío** (19€) - Combina tres sabores
 
-Changes made via Lovable will be committed automatically to this repo.
+**Sabores disponibles:** Menta, Sandía, Melocotón, Uva, Mango, Limón, Fresa, Manzana, Arándano, Coco, Piña y Cereza.
 
-**Use your preferred IDE**
+#### Cachimbas Premium
+Experiencias exclusivas con tabaco de alta gama (22-24€):
+- **Frozen Mist** - Menta glacial con eucalipto
+- **Tropical Sunset** - Mango y maracuyá con coco
+- **Berry Dreams** - Mix de frutos del bosque
+- **Golden Rose** - Pétalos de rosa con miel y vainilla
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+#### Mezclas de la Casa
+Nuestras creaciones signature (23-25€):
+- **Luna Night** ⭐ - Nuestra mezcla estrella: uva negra, menta suave y un toque misterioso
+- **Arabian Nights** - Frutas del desierto con especias
+- **Purple Haze** - Arándanos con lavanda y limón
+- **Summer Breeze** - Sandía, pepino y menta
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### 🍹 Bebidas & Mocktails
 
-Follow these steps:
+#### Bebidas Sin Alcohol
+Refrescos, zumos naturales, agua mineral y tés fríos (2-4€)
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+#### Especiales del Lounge
+Nuestros mocktails exclusivos (5-6€):
+- **Luna Lemonade** - Limonada con lavanda y miel
+- **Mint Mojito** - Menta, lima y azúcar de caña
+- **Berry Sensation** - Frutos rojos con jengibre
+- **Golden Hour** ⭐ - Mango, maracuyá y agua de coco
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+## Ubicación
 
-# Step 3: Install the necessary dependencies.
-npm i
+📍 **Calle Juan de Austria, 6**  
+📍 **45221 Esquivias, Toledo**
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+## Horarios
 
-**Edit a file directly in GitHub**
+- 🕐 **Lunes - Jueves:** 18:00 - 02:00
+- 🕐 **Viernes - Sábado:** 18:00 - 04:00
+- 🕐 **Domingo:** 17:00 - 01:00
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Síguenos
 
-**Use GitHub Codespaces**
+📱 Instagram: [@lunalounge_esquivias](https://www.instagram.com/lunalounge_esquivias/)
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+---
 
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+*Ven y descubre tu sabor favorito en un ambiente único de relax y buenas vibes* ✨
