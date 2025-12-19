@@ -1,14 +1,17 @@
+import { useState } from "react";
 import Header from "@/components/Header";
 import SectionNav from "@/components/SectionNav";
 import MenuSection from "@/components/MenuSection";
 import MenuItem from "@/components/MenuItem";
 import Footer from "@/components/Footer";
+import ProductDetailDialog from "@/components/ProductDetailDialog";
 import { useCategories } from "@/hooks/useCategories";
 import { useProductsByCategory } from "@/hooks/useProducts";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const Index = () => {
   const { data: categories, isLoading: loadingCategories } = useCategories();
+  const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
 
   if (loadingCategories) {
     return (
@@ -47,7 +50,7 @@ const Index = () => {
               title={cachimbas.name} 
               subtitle={cachimbas.subtitle || undefined}
             >
-              <CategoryProducts categoryId={cachimbas.id} />
+              <CategoryProducts categoryId={cachimbas.id} onSelectProduct={setSelectedProduct} />
             </MenuSection>
           </section>
         )}
@@ -59,7 +62,7 @@ const Index = () => {
               title={paraPicar.name} 
               subtitle={paraPicar.subtitle || undefined}
             >
-              <CategoryProducts categoryId={paraPicar.id} />
+              <CategoryProducts categoryId={paraPicar.id} onSelectProduct={setSelectedProduct} />
             </MenuSection>
           </section>
         )}
@@ -82,7 +85,7 @@ const Index = () => {
                   <h3 className="text-gold text-sm font-medium uppercase tracking-wider mb-4 px-4">
                     {cervezas.icon} {cervezas.name}
                   </h3>
-                  <CategoryProducts categoryId={cervezas.id} />
+                  <CategoryProducts categoryId={cervezas.id} onSelectProduct={setSelectedProduct} />
                 </div>
               )}
 
@@ -92,7 +95,7 @@ const Index = () => {
                   <h3 className="text-gold text-sm font-medium uppercase tracking-wider mb-4 px-4">
                     {refrescos.icon} {refrescos.name}
                   </h3>
-                  <CategoryProducts categoryId={refrescos.id} />
+                  <CategoryProducts categoryId={refrescos.id} onSelectProduct={setSelectedProduct} />
                 </div>
               )}
             </div>
@@ -111,7 +114,7 @@ const Index = () => {
               title={copas.name} 
               subtitle={copas.subtitle || "Destilados premium"}
             >
-              <CategoryProductsGrouped categoryId={copas.id} />
+              <CategoryProductsGrouped categoryId={copas.id} onSelectProduct={setSelectedProduct} />
             </MenuSection>
           </section>
         )}
@@ -123,7 +126,7 @@ const Index = () => {
               title={chupitos.name} 
               subtitle={chupitos.subtitle || undefined}
             >
-              <CategoryProducts categoryId={chupitos.id} />
+              <CategoryProducts categoryId={chupitos.id} onSelectProduct={setSelectedProduct} />
             </MenuSection>
           </section>
         )}
@@ -146,7 +149,7 @@ const Index = () => {
                   <h3 className="text-gold text-sm font-medium uppercase tracking-wider mb-4 px-4">
                     {cocteles.icon} {cocteles.name}
                   </h3>
-                  <CategoryProducts categoryId={cocteles.id} />
+                  <CategoryProducts categoryId={cocteles.id} onSelectProduct={setSelectedProduct} />
                 </div>
               )}
 
@@ -156,7 +159,7 @@ const Index = () => {
                   <h3 className="text-gold text-sm font-medium uppercase tracking-wider mb-4 px-4">
                     {vinos.icon} {vinos.name}
                   </h3>
-                  <CategoryProducts categoryId={vinos.id} />
+                  <CategoryProducts categoryId={vinos.id} onSelectProduct={setSelectedProduct} />
                 </div>
               )}
             </div>
@@ -165,12 +168,24 @@ const Index = () => {
       </main>
 
       <Footer />
+
+      {/* Dialog detalle producto */}
+      <ProductDetailDialog
+        productId={selectedProduct}
+        onClose={() => setSelectedProduct(null)}
+      />
     </div>
   );
 };
 
 // Componente para renderizar productos de una categoría
-const CategoryProducts = ({ categoryId }: { categoryId: string }) => {
+const CategoryProducts = ({ 
+  categoryId, 
+  onSelectProduct 
+}: { 
+  categoryId: string;
+  onSelectProduct: (id: string) => void;
+}) => {
   const { data: products, isLoading } = useProductsByCategory(categoryId);
 
   if (isLoading) {
@@ -196,6 +211,7 @@ const CategoryProducts = ({ categoryId }: { categoryId: string }) => {
       {products.map((product) => (
         <MenuItem 
           key={product.id}
+          onClick={() => onSelectProduct(product.id)}
           name={product.name}
           description={product.description || undefined}
           price={product.price_display || `${product.price}€`}
@@ -208,7 +224,13 @@ const CategoryProducts = ({ categoryId }: { categoryId: string }) => {
 };
 
 // Componente para renderizar productos agrupados por tag (para copas)
-const CategoryProductsGrouped = ({ categoryId }: { categoryId: string }) => {
+const CategoryProductsGrouped = ({ 
+  categoryId,
+  onSelectProduct 
+}: { 
+  categoryId: string;
+  onSelectProduct: (id: string) => void;
+}) => {
   const { data: products, isLoading } = useProductsByCategory(categoryId);
 
   if (isLoading) {
@@ -246,6 +268,7 @@ const CategoryProductsGrouped = ({ categoryId }: { categoryId: string }) => {
           {items.map((product) => (
             <MenuItem 
               key={product.id}
+              onClick={() => onSelectProduct(product.id)}
               name={product.name}
               description={product.description || undefined}
               price={product.price_display || `${product.price}€`}
