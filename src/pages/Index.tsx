@@ -27,144 +27,37 @@ const Index = () => {
     );
   }
 
-  // Encontrar categorías por slug
-  const cachimbas = categories?.find(c => c.slug === 'cachimbas');
-  const paraPicar = categories?.find(c => c.slug === 'para-picar');
-  const cervezas = categories?.find(c => c.slug === 'cervezas');
-  const refrescos = categories?.find(c => c.slug === 'refrescos');
-  const copas = categories?.find(c => c.slug === 'copas');
-  const chupitos = categories?.find(c => c.slug === 'chupitos');
-  const cocteles = categories?.find(c => c.slug === 'cocteles');
-  const vinos = categories?.find(c => c.slug === 'vinos');
-
   return (
     <div className="min-h-screen bg-background">
       <Header />
       <SectionNav />
       
       <main className="container">
-        {/* Cachimbas */}
-        {cachimbas && (
-          <section id="cachimbas">
-            <MenuSection 
-              title={cachimbas.name} 
-              subtitle={cachimbas.subtitle || undefined}
-            >
-              <CategoryProducts categoryId={cachimbas.id} onSelectProduct={setSelectedProduct} />
-            </MenuSection>
-          </section>
-        )}
-
-        {/* Para Picar */}
-        {paraPicar && (
-          <section id="para-picar">
-            <MenuSection 
-              title={paraPicar.name} 
-              subtitle={paraPicar.subtitle || undefined}
-            >
-              <CategoryProducts categoryId={paraPicar.id} onSelectProduct={setSelectedProduct} />
-            </MenuSection>
-          </section>
-        )}
-
-        {/* Separator */}
-        <div className="flex items-center justify-center py-8">
-          <div className="h-px w-24 bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
-        </div>
-
-        {/* Bebidas - Grid de categorías */}
-        <section id="bebidas">
-          <MenuSection 
-            title="Bebidas" 
-            subtitle="Cervezas, refrescos y más"
-          >
-            <div className="grid md:grid-cols-2 gap-8">
-              {/* Cervezas */}
-              {cervezas && (
-                <div className="space-y-2">
-                  <h3 className="text-gold text-sm font-medium uppercase tracking-wider mb-4 px-4">
-                    {cervezas.icon} {cervezas.name}
-                  </h3>
-                  <CategoryProducts categoryId={cervezas.id} onSelectProduct={setSelectedProduct} />
-                </div>
-              )}
-
-              {/* Refrescos */}
-              {refrescos && (
-                <div className="space-y-2">
-                  <h3 className="text-gold text-sm font-medium uppercase tracking-wider mb-4 px-4">
-                    {refrescos.icon} {refrescos.name}
-                  </h3>
-                  <CategoryProducts categoryId={refrescos.id} onSelectProduct={setSelectedProduct} />
-                </div>
-              )}
-            </div>
-          </MenuSection>
-        </section>
-
-        {/* Separator */}
-        <div className="flex items-center justify-center py-8">
-          <div className="h-px w-24 bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
-        </div>
-
-        {/* Copas */}
-        {copas && (
-          <section id="copas">
-            <MenuSection 
-              title={copas.name} 
-              subtitle={copas.subtitle || "Destilados premium"}
-            >
-              <CategoryProductsGrouped categoryId={copas.id} onSelectProduct={setSelectedProduct} />
-            </MenuSection>
-          </section>
-        )}
-
-        {/* Chupitos */}
-        {chupitos && (
-          <section id="chupitos">
-            <MenuSection 
-              title={chupitos.name} 
-              subtitle={chupitos.subtitle || undefined}
-            >
-              <CategoryProducts categoryId={chupitos.id} onSelectProduct={setSelectedProduct} />
-            </MenuSection>
-          </section>
-        )}
-
-        {/* Separator */}
-        <div className="flex items-center justify-center py-8">
-          <div className="h-px w-24 bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
-        </div>
-
-        {/* Cócteles y Vinos */}
-        <section id="especiales">
-          <MenuSection 
-            title="Especiales" 
-            subtitle="Cócteles y vinos"
-          >
-            <div className="grid md:grid-cols-2 gap-8">
-              {/* Cócteles */}
-              {cocteles && (
-                <div className="space-y-2">
-                  <h3 className="text-gold text-sm font-medium uppercase tracking-wider mb-4 px-4">
-                    {cocteles.icon} {cocteles.name}
-                  </h3>
-                  <CategoryProducts categoryId={cocteles.id} onSelectProduct={setSelectedProduct} />
-                </div>
-              )}
-
-              {/* Vinos */}
-              {vinos && (
-                <div className="space-y-2">
-                  <h3 className="text-gold text-sm font-medium uppercase tracking-wider mb-4 px-4">
-                    {vinos.icon} {vinos.name}
-                  </h3>
-                  <CategoryProducts categoryId={vinos.id} onSelectProduct={setSelectedProduct} />
-                </div>
-              )}
-            </div>
-          </MenuSection>
-        </section>
+        {/* Renderizar todas las categorías dinámicamente */}
+        {categories?.map((category, index) => (
+          <div key={category.id}>
+            {/* Separador entre secciones (excepto antes de la primera) */}
+            {index > 0 && (
+              <div className="flex items-center justify-center py-8">
+                <div className="h-px w-24 bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
+              </div>
+            )}
+            
+            <section id={category.slug}>
+              <MenuSection 
+                title={category.name} 
+                subtitle={category.subtitle || undefined}
+              >
+                {/* Si es categoría de copas, agrupar por tag */}
+                {category.slug === 'copas' || category.slug === 'copas-premium' ? (
+                  <CategoryProductsGrouped categoryId={category.id} onSelectProduct={setSelectedProduct} />
+                ) : (
+                  <CategoryProducts categoryId={category.id} onSelectProduct={setSelectedProduct} />
+                )}
+              </MenuSection>
+            </section>
+          </div>
+        ))}
       </main>
 
       <Footer />
