@@ -8,6 +8,7 @@ import CategoriesManager from "@/components/admin/CategoriesManager";
 import DashboardStats from "@/components/admin/DashboardStats";
 import { useToast } from "@/hooks/use-toast";
 import { Link } from "react-router-dom";
+import ComandasManager from "@/components/admin/ComandasManager";
 
 const AdminDashboard = () => {
     const { signOut, adminUser } = useAuth();
@@ -62,7 +63,7 @@ const AdminDashboard = () => {
             {/* Main Content */}
             <main className="container py-8">
                 <Tabs value={activeTab} onValueChange={setActiveTab}>
-                    <TabsList className="grid w-full max-w-md grid-cols-3">
+                    <TabsList className="grid w-full max-w-md grid-cols-4">
                         <TabsTrigger value="dashboard">
                             <LayoutDashboard className="mr-2 h-4 w-4" />
                             Dashboard
@@ -74,6 +75,10 @@ const AdminDashboard = () => {
                         <TabsTrigger value="categories">
                             <FolderTree className="mr-2 h-4 w-4" />
                             Categorías
+                        </TabsTrigger>
+                        <TabsTrigger value="comandas">
+                            <FolderTree className="mr-2 h-4 w-4" />
+                            Comandas
                         </TabsTrigger>
                     </TabsList>
 
@@ -87,6 +92,9 @@ const AdminDashboard = () => {
 
                     <TabsContent value="categories" className="mt-6">
                         <CategoriesManager />
+                    </TabsContent>
+                    <TabsContent value="comandas" className="mt-6">
+                        <ComandasManager />
                     </TabsContent>
                 </Tabs>
             </main>

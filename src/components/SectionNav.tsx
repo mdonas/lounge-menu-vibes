@@ -1,25 +1,38 @@
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { ChevronDown } from "lucide-react";
+import { useCategories } from "@/hooks/useCategories";
 
 interface NavItem {
   id: string;
   label: string;
 }
 
-const navItems: NavItem[] = [
-  { id: "clasicas", label: "Clásicas" },
-  { id: "premium", label: "Premium" },
-  { id: "sabores", label: "Sabores" },
-  { id: "mezclas", label: "Mezclas" },
-  { id: "bebidas", label: "Bebidas" },
-];
-
 const SectionNav = () => {
-  const [activeSection, setActiveSection] = useState<string>("clasicas");
+  const { data: categories } = useCategories();
+  const [activeSection, setActiveSection] = useState<string>("");
   const [showMore, setShowMore] = useState(false);
+  const [navItems, setNavItems] = useState<NavItem[]>([]);
 
-  // First 3 items always visible, last 2 in dropdown on mobile
+  // Generar items de navegación desde las categorías
+  useEffect(() => {
+    if (categories) {
+      const items: NavItem[] = [
+        { id: "cachimbas", label: "Cachimbas" },
+        { id: "para-picar", label: "Para Picar" },
+        { id: "bebidas", label: "Bebidas" },
+        { id: "copas", label: "Copas" },
+        { id: "chupitos", label: "Chupitos" },
+        { id: "especiales", label: "Especiales" },
+      ];
+      setNavItems(items);
+      if (!activeSection && items.length > 0) {
+        setActiveSection(items[0].id);
+      }
+    }
+  }, [categories]);
+
+  // First 3 items always visible, last ones in dropdown on mobile
   const visibleItems = navItems.slice(0, 3);
   const moreItems = navItems.slice(3);
 
@@ -48,7 +61,7 @@ const SectionNav = () => {
     handleScroll();
 
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [navItems]);
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -74,6 +87,10 @@ const SectionNav = () => {
 
   const isMoreActive = moreItems.some((item) => item.id === activeSection);
 
+  if (navItems.length === 0) {
+    return null;
+  }
+
   return (
     <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur-md border-b border-border/30">
       <div className="container py-3">
@@ -95,60 +112,64 @@ const SectionNav = () => {
           ))}
 
           {/* More dropdown for remaining items on mobile */}
-          <div className="relative md:hidden">
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                setShowMore(!showMore);
-              }}
-              className={cn(
-                "px-3 py-2 text-sm font-medium rounded-full whitespace-nowrap transition-all duration-300 flex items-center gap-1",
-                isMoreActive
-                  ? "bg-gold text-primary-foreground"
-                  : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
-              )}
-            >
-              {isMoreActive ? moreItems.find(item => item.id === activeSection)?.label : "Más"}
-              <ChevronDown className={cn("w-4 h-4 transition-transform", showMore && "rotate-180")} />
-            </button>
-
-            {showMore && (
-              <div className="absolute top-full mt-2 right-0 bg-background border border-border rounded-lg shadow-lg py-1 min-w-[120px] z-50">
-                {moreItems.map((item) => (
-                  <button
-                    key={item.id}
-                    onClick={() => scrollToSection(item.id)}
-                    className={cn(
-                      "w-full px-4 py-2 text-sm font-medium text-left transition-colors",
-                      activeSection === item.id
-                        ? "bg-gold/20 text-gold"
-                        : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
-                    )}
-                  >
-                    {item.label}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* Show all items on desktop */}
-          <div className="hidden md:flex gap-2">
-            {moreItems.map((item) => (
+          {moreItems.length > 0 && (
+            <div className="relative md:hidden">
               <button
-                key={item.id}
-                onClick={() => scrollToSection(item.id)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowMore(!showMore);
+                }}
                 className={cn(
-                  "px-4 py-2 text-sm font-medium rounded-full whitespace-nowrap transition-all duration-300",
-                  activeSection === item.id
+                  "px-3 py-2 text-sm font-medium rounded-full whitespace-nowrap transition-all duration-300 flex items-center gap-1",
+                  isMoreActive
                     ? "bg-gold text-primary-foreground"
                     : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
                 )}
               >
-                {item.label}
+                {isMoreActive ? moreItems.find(item => item.id === activeSection)?.label : "Más"}
+                <ChevronDown className={cn("w-4 h-4 transition-transform", showMore && "rotate-180")} />
               </button>
-            ))}
-          </div>
+
+              {showMore && (
+                <div className="absolute top-full mt-2 right-0 bg-background border border-border rounded-lg shadow-lg py-1 min-w-[120px] z-50">
+                  {moreItems.map((item) => (
+                    <button
+                      key={item.id}
+                      onClick={() => scrollToSection(item.id)}
+                      className={cn(
+                        "w-full px-4 py-2 text-sm font-medium text-left transition-colors",
+                        activeSection === item.id
+                          ? "bg-gold/20 text-gold"
+                          : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                      )}
+                    >
+                      {item.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Show all items on desktop */}
+          {moreItems.length > 0 && (
+            <div className="hidden md:flex gap-2">
+              {moreItems.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className={cn(
+                    "px-4 py-2 text-sm font-medium rounded-full whitespace-nowrap transition-all duration-300",
+                    activeSection === item.id
+                      ? "bg-gold text-primary-foreground"
+                      : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                  )}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </nav>

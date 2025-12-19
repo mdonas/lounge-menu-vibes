@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useAllProducts, useDeleteProduct } from "@/hooks/useProducts";
+import { useAllProducts, useDeleteProduct, useUpdateProduct } from "@/hooks/useProducts";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -36,6 +36,7 @@ import {
 const ProductsManager = () => {
   const { data: products, isLoading } = useAllProducts();
   const deleteProduct = useDeleteProduct();
+  const updateProduct = useUpdateProduct();
   const { toast } = useToast();
 
   const [searchTerm, setSearchTerm] = useState("");
@@ -56,6 +57,27 @@ const ProductsManager = () => {
   const handleCreate = () => {
     setEditingProduct(null);
     setIsFormOpen(true);
+  };
+
+  const handleToggleAvailability = async (product: any) => {
+    try {
+      await updateProduct.mutateAsync({
+        id: product.id,
+        updates: {
+          is_available: !product.is_available,
+        },
+      });
+      toast({
+        title: product.is_available ? "Producto ocultado" : "Producto visible",
+        description: `${product.name} ahora está ${product.is_available ? "oculto" : "visible"}`,
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "No se pudo cambiar la visibilidad",
+        variant: "destructive",
+      });
+    }
   };
 
   const handleDelete = async () => {
@@ -144,17 +166,24 @@ const ProductsManager = () => {
                   <TableCell>{product.category_name || "Sin categoría"}</TableCell>
                   <TableCell>{product.price_display || `${product.price}€`}</TableCell>
                   <TableCell>
-                    {product.is_available ? (
-                      <Badge variant="default" className="gap-1">
-                        <Eye className="h-3 w-3" />
-                        Visible
-                      </Badge>
-                    ) : (
-                      <Badge variant="secondary" className="gap-1">
-                        <EyeOff className="h-3 w-3" />
-                        Oculto
-                      </Badge>
-                    )}
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => handleToggleAvailability(product)}
+                      className="gap-2"
+                    >
+                      {product.is_available ? (
+                        <>
+                          <Eye className="h-4 w-4 text-green-600" />
+                          <span className="text-green-600">Visible</span>
+                        </>
+                      ) : (
+                        <>
+                          <EyeOff className="h-4 w-4 text-gray-400" />
+                          <span className="text-gray-400">Oculto</span>
+                        </>
+                      )}
+                    </Button>
                   </TableCell>
                   <TableCell>
                     {product.tag && (

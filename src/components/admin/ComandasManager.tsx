@@ -49,9 +49,15 @@ const ComandasManager = () => {
   }, []);
 
   const loadOrders = async () => {
+    // Obtener fecha de ayer a las 00:00
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    yesterday.setHours(0, 0, 0, 0);
+
     const { data } = await supabase
       .from("orders")
       .select("*")
+      .gte("created_at", yesterday.toISOString())
       .order("created_at", { ascending: false });
 
     setOrders((data as Order[]) || []);
@@ -159,6 +165,23 @@ const ComandasManager = () => {
     setShowDialog(true);
   };
 
+  // Agrupar comandas por día
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const yesterday = new Date(today);
+  yesterday.setDate(yesterday.getDate() - 1);
+
+  const todayOrders = orders.filter((o) => {
+    const orderDate = new Date(o.created_at);
+    return orderDate >= today;
+  });
+
+  const yesterdayOrders = orders.filter((o) => {
+    const orderDate = new Date(o.created_at);
+    return orderDate >= yesterday && orderDate < today;
+  });
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -176,14 +199,14 @@ const ComandasManager = () => {
         </Button>
       </div>
 
-      {/* Abiertas */}
+      {/* HOY - Abiertas */}
       <div>
-        <h3 className="text-sm font-medium text-muted-foreground mb-2">
-          Abiertas
+        <h3 className="text-sm font-medium text-gold mb-2">
+          Hoy - Abiertas
         </h3>
 
         <div className="space-y-4">
-          {orders
+          {todayOrders
             .filter((o) => o.status === "open")
             .map((order) => (
               <div
@@ -208,6 +231,7 @@ const ComandasManager = () => {
                 <div className="flex gap-2">
                   <Button
                     size="sm"
+                    variant="outline"
                     onClick={() => editOrder(order)}
                   >
                     Editar
@@ -221,19 +245,25 @@ const ComandasManager = () => {
                 </div>
               </div>
             ))}
+
+          {todayOrders.filter((o) => o.status === "open").length === 0 && (
+            <p className="text-sm text-muted-foreground text-center py-4">
+              No hay comandas abiertas hoy
+            </p>
+          )}
         </div>
       </div>
 
       <Separator />
 
-      {/* Cobradas */}
+      {/* HOY - Cobradas */}
       <div>
         <h3 className="text-sm font-medium text-muted-foreground mb-2">
-          Cobradas
+          Hoy - Cobradas
         </h3>
 
         <div className="space-y-2">
-          {orders
+          {todayOrders
             .filter((o) => o.status === "paid")
             .map((order) => (
               <div
@@ -244,6 +274,41 @@ const ComandasManager = () => {
                 <span>{order.total.toFixed(2)}€</span>
               </div>
             ))}
+
+          {todayOrders.filter((o) => o.status === "paid").length === 0 && (
+            <p className="text-sm text-muted-foreground text-center py-2">
+              No hay comandas cobradas hoy
+            </p>
+          )}
+        </div>
+      </div>
+
+      <Separator />
+
+      {/* AYER */}
+      <div>
+        <h3 className="text-sm font-medium text-muted-foreground mb-2">
+          Ayer
+        </h3>
+
+        <div className="space-y-2">
+          {yesterdayOrders.map((order) => (
+            <div
+              key={order.id}
+              className="flex justify-between text-sm text-muted-foreground"
+            >
+              <span>
+                Mesa {order.table_id} - {order.status === "open" ? "Abierta" : "Cobrada"}
+              </span>
+              <span>{order.total.toFixed(2)}€</span>
+            </div>
+          ))}
+
+          {yesterdayOrders.length === 0 && (
+            <p className="text-sm text-muted-foreground text-center py-2">
+              No hay comandas de ayer
+            </p>
+          )}
         </div>
       </div>
 

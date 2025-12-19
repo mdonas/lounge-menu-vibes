@@ -169,21 +169,22 @@ const ProductForm = ({ product, onSuccess, onCancel }: ProductFormProps) => {
             </Button>
           </div>
         ) : (
-          <div className="border-2 border-dashed rounded-lg p-8 text-center">
+          <Label
+            htmlFor="image-upload"
+            className="border-2 border-dashed rounded-lg p-8 text-center cursor-pointer hover:border-primary hover:bg-muted/50 transition-all block"
+          >
             <Upload className="mx-auto h-12 w-12 text-muted-foreground mb-2" />
-            <Label htmlFor="image-upload" className="cursor-pointer">
-              <span className="text-sm text-muted-foreground">
-                Click para subir imagen
-              </span>
-              <Input
-                id="image-upload"
-                type="file"
-                accept="image/*"
-                className="hidden"
-                onChange={handleImageChange}
-              />
-            </Label>
-          </div>
+            <span className="text-sm text-muted-foreground">
+              Click para subir imagen
+            </span>
+            <Input
+              id="image-upload"
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={handleImageChange}
+            />
+          </Label>
         )}
       </div>
 
