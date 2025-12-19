@@ -1,28 +1,90 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
+    <!-- Básico -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- TODO: Set the document title to the name of your application -->
-    <title>LunaLounge | Shisha &amp; Cocktails</title>
-    <meta name="description" content="Carta digital de LunaLounge - Shisha Lounge, Cocktails y Chill en Esquivas Toledo">
-    <meta name="author" content="LunaLounge" />
-    
-    
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="/ogLuna.png" />
 
+    <!-- TITLE SEO -->
+    <title>Luna Lounge Esquivias | Cachimbas, Shisha y Lounge en Toledo</title>
+
+    <!-- META DESCRIPTION -->
+    <meta
+      name="description"
+      content="Luna Lounge en Esquivias: cachimbas premium, shisha, cocktails y ambiente lounge. El mejor bar de cachimbas en Esquivias y Toledo."
+    />
+
+    <!-- Autor -->
+    <meta name="author" content="Luna Lounge Esquivias" />
+
+    <!-- Keywords (no posicionan solas, pero ayudan contexto local) -->
+    <meta
+      name="keywords"
+      content="Luna Lounge, cachimbas Esquivias, shisha Esquivias, lounge Esquivias, bar de cachimbas Toledo, shisha Toledo"
+    />
+
+    <!-- Canonical (MUY IMPORTANTE) -->
+    <link rel="canonical" href="https://www.lunalounge.es/" />
+
+    <!-- Open Graph (Facebook / WhatsApp / Instagram) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Luna Lounge Esquivias" />
+    <meta property="og:title" content="Luna Lounge Esquivias | Cachimbas y Shisha Premium" />
+    <meta
+      property="og:description"
+      content="Disfruta de las mejores cachimbas y shisha premium en Luna Lounge, el lounge de referencia en Esquivias (Toledo)."
+    />
+    <meta property="og:url" content="https://www.lunalounge.es/" />
+    <meta property="og:image" content="https://www.lunalounge.es/ogLuna.png" />
+
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@LunaLounge" />
-    <meta name="twitter:image" content="/ogLuna.png" />
-    <meta property="og:title" content="LunaLounge | Shisha &amp; Cocktails">
-  <meta name="twitter:title" content="LunaLounge | Shisha &amp; Cocktails">
-  <meta property="og:description" content="Carta digital de LunaLounge - Shisha Lounge, Cocktails y Chill en Esquivas Toledo">
-  <meta name="twitter:description" content="Carta digital de LunaLounge - Shisha Lounge, Cocktails y Chill en Esquivas Toledo">
-</head>
+    <meta name="twitter:title" content="Luna Lounge Esquivias | Cachimbas y Lounge" />
+    <meta
+      name="twitter:description"
+      content="Cachimbas premium, shisha y cocktails en Luna Lounge Esquivias. Tu bar de cachimbas en Toledo."
+    />
+    <meta name="twitter:image" content="https://www.lunalounge.es/ogLuna.png" />
+
+    <!-- Datos estructurados LOCAL BUSINESS (CLAVE PARA MAPS) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BarOrPub",
+        "name": "Luna Lounge",
+        "image": "https://www.lunalounge.es/ogLuna.png",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "CALLE REAL 00",
+          "addressLocality": "Esquivias",
+          "addressRegion": "Toledo",
+          "postalCode": "45221",
+          "addressCountry": "ES"
+        },
+        "url": "https://www.lunalounge.es/",
+        "telephone": "+34XXXXXXXXX",
+        "priceRange": "€€",
+        "servesCuisine": ["Cocktails", "Shisha"],
+        "sameAs": [
+          "https://www.instagram.com/lunalounge",
+          "https://www.facebook.com/lunalounge"
+        ]
+      }
+    </script>
+  </head>
 
   <body>
+    <!-- SEO fallback (importante en SPA / React) -->
+    <noscript>
+      <h1>Luna Lounge – Cachimbas en Esquivias</h1>
+      <p>
+        Luna Lounge es el mejor lounge de cachimbas en Esquivias. Disfruta de shisha
+        premium, cocktails y un ambiente exclusivo en Toledo.
+      </p>
+    </noscript>
+
     <div id="root"></div>
+
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
